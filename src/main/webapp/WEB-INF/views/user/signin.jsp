@@ -12,7 +12,8 @@
 <body>
 	<div class="container">
 		<h2>로그인</h2>
-		<c:if test="${not empty errorMessage}">
+		<%-- ${} : UserController 에서 셋팅한 setAttribute(errorMessage)를 getter(불러옴) --%>
+		<c:if test="${not empty errorMessage}"> 
 			<p style="color: red;"> ${errorMessage}</p>
 		</c:if>
 		

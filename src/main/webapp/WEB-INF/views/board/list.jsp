@@ -1,38 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시글 목록</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/list.css">
 </head>
 <body>
 	<h2>게시글 목록</h2>
-	<div>
-		<a href="${pageContext.request.contextPath}/board/create">새글 작성하기</a>
-		<a href="${pageContext.request.contextPath}/index.jsp">홈 화면</a>
+	<div class="action">
+		<a class="btn btn-create" href="${pageContext.request.contextPath}/board/create" >새글 작성하기</a>
+		<a class="btn btn-back" href="${pageContext.request.contextPath}/index.jsp" >홈 화면</a>
 	</div>
 	
-	<!-- board list 생성 -->
-	<!-- 반복문 사용 예정 -->
-	<div class="board-item">
+	<c:forEach var="board"  items="${boardList}"> 
+	<%-- items인 ${boardList}에는 List로 여러 개든 1개든 반드시 list가 담김. --%>
+		<div class="board-item">
+			<h3><a href="${pageContext.request.contextPath}/board/view?id=${board.id}">${board.title}</a></h3>
+			<p>${board.content}</p>
+			<p> <fmt:formatDate value="${board.createdAt}" pattern="yyyy-MM-dd HH:mm" /></p>
+			<!-- 게시글에 작성자가 세션 유저와 동일하다면 수정, 삭제 버튼을 보여주자  -->
+			<c:if test="${board.userId == userId}">
+			<%-- BoardController 의 request.setAttribute("userId", user.getId()); --%>
+				<a class="btn btn-edit" href="#">수정</a>
+				<a class="btn btn-delete" href="#">삭제</a>
+			</c:if>
+		</div>
+	</c:forEach>
 	
-	
+	<br>
+	<div class="pagination">
+		<!-- index for  -->
+		<c:forEach begin="1" end="${totalPages}"  var="i" >
+		<%-- 1부터 totalPage(4)까지 4번 반복문 돌림. var는 for문의 i(변수명) --%>
+			<c:choose>
+				<c:when test="${ i == currentPage }">
+					<span class="current-page">${i}</span>
+				</c:when>
+				<c:otherwise>
+					<span><a href="${pageContext.request.contextPath}/board/list?page=${i}">${i}</a></span>	
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
 	</div>
-	
-	<div>
-	<%
-		//localhost:8080/t-board/board/list?page=1
-		//localhost:8080/t-board/board/list?page=2
-		//localhost:8080/t-board/board/list?page=3 => 자바 코드 넣어서 동적으로 변환 필요
-	%>
-	
-		<span><a href="${pageContext.request.contextPath}/board/list?page=1">1</a></span><br>
-		<span><a href="${pageContext.request.contextPath}/board/list?page=2">2</a></span><br>
-		<span><a href="${pageContext.request.contextPath}/board/list?page=3">3</a></span><br>
-		<span><a href="${pageContext.request.contextPath}/board/list?page=4">4</a></span><br>
-	</div>
-	
 </body>
 </html>

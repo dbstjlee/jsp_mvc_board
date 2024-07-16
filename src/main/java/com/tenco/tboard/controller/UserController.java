@@ -55,8 +55,7 @@ public class UserController extends HttpServlet {
 	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
-		session.invalidate();
-		
+		session.invalidate(); 
 		response.sendRedirect(request.getContextPath() + "/user/signin");
 	}
 
@@ -69,16 +68,20 @@ public class UserController extends HttpServlet {
 			break;
 		case "/signin":
 			handleSignin(request, response);
-			 // 로그인 기능 처리 
 			break;
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			break;
 		}
-		
 	}
 
-
+	/**
+	 * 로그인 기능
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void handleSignin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
@@ -91,14 +94,19 @@ public class UserController extends HttpServlet {
 			
 			// 302(브라우저) --> 바로 서블릿 클래스(BoardController) -- (JSP 내부 이동)
 			System.out.println("로그인 완료");
-			response.sendRedirect(request.getContextPath() + "/board/list");
+			response.sendRedirect(request.getContextPath() + "/board/list"); // 목록으로 이동
 		} else {
 			request.setAttribute("errorMessage", "잘못된 요청입니다.");
-			request.getRequestDispatcher("/WEB-INF/views/user/signin.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/user/signin.jsp").forward(request, response); // 로그인 페이지 유지
 		}
 	}
 
-
+	/**
+	 * 회원가입 기능
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void handleSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 데이터 추출 
 		String username = request.getParameter("username") ; 

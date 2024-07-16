@@ -41,9 +41,9 @@ body {
  		<h2>JSP MVC 게시판 데스트 페이지</h2>
  		<ul class="nav-list">
  			<li class="btn btn-primary"><a href="/t-board/user/signup">회원가입</a></li>
- 			<li class="btn btn-primary"><a href="/t-board/user/signup">로그인</a></li>
- 			<li class="btn btn-secondary"><a href="/t-board/user/signup">로그아웃</a></li>
- 			<li class="btn btn-primary"><a href="/t-board/user/signup">게시판목록</a></li>
+ 			<li class="btn btn-primary"><a href="/t-board/user/signin">로그인</a></li>
+ 			<li class="btn btn-secondary"><a href="/t-board/user/logout">로그아웃</a></li>
+ 			<li class="btn btn-primary"><a href="/t-board/user/list">게시판목록</a></li>
  		</ul>
  	
  	</div>
