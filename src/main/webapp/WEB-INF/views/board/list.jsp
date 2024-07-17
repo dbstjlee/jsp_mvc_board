@@ -27,8 +27,8 @@
 			<!-- 게시글에 작성자가 세션 유저와 동일하다면 수정, 삭제 버튼을 보여주자  -->
 			<c:if test="${board.userId == userId}">
 			<%-- BoardController 의 request.setAttribute("userId", user.getId()); --%>
-				<a class="btn btn-edit" href="#">수정</a>
-				<a class="btn btn-delete" href="#">삭제</a>
+				<a class="btn btn-edit" href="${pageContext.request.contextPath}/board/update?id=${board.id}">수정</a>
+				<a class="btn btn-delete" href="${pageContext.request.contextPath}/board/delete?id=${board.id}">삭제</a>
 			</c:if>
 		</div>
 	</c:forEach>
